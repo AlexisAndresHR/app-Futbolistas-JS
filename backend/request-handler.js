@@ -23,6 +23,19 @@ module.exports = (req, res) => {
     // Obtains the request method (GET, POST, PUT, DELETE)
     const requestMethod = req.method.toLowerCase();
 
+    // * Gives CORS (Cross-Origin Resource Sharing) permissions to access the API
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Request-Methods", "OPTIONS, GET, POST, PUT, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "*");
+
+    // Response to be send when the method is 'options'
+    if (requestMethod === 'options') {
+        res.writeHead(200);
+        res.end();
+        return;
+    }
+
+
     // With a destructuring expression, obtains the data parameters in the URL
     const { urlParameters = {} } = parsedUrl;
 
