@@ -23,7 +23,7 @@ async function listPlayers() {
         // Makes a request to the data API (backend) and load the real Players registers
         const response = await fetch(url);// Using fetch (HTTP requests)
         const playersRegisters = await response.json();
-        if (Array.isArray(playersRegisters) && playersRegisters.length > 0) {
+        if (Array.isArray(playersRegisters)) {
             players = playersRegisters;// Assign the server registers to the local variable
         }
 
@@ -134,11 +134,28 @@ function editPlayerData(index) {
     }
 }
 
+/**
+ * Function (with async return) to delete/remove Players registers from the data API
+ * @param index
+ * @returns {(function(): void)|*}
+ */
 function deletePlayer(index) {
-    return function clickHandler2() {
+    const sendUrl = `${url}/${index}`;
+    return async function clickHandler2() {
         // Using array.filter, the item to be deleted is avoided and the others are added again
-        players = players.filter((player, playerIndex) => playerIndex !== index);
-        listPlayers();// Refresh the table of players
+        //players = players.filter((player, playerIndex) => playerIndex !== index);
+        try {
+            const response = await fetch(sendUrl, {
+                method: "DELETE",
+            });
+
+            if (response.ok) {
+                listPlayers();// Refresh the table of players (after the elimination)
+            }
+        }
+        catch (error) {
+            throw error;
+        }
     }
 }
 
