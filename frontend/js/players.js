@@ -8,6 +8,8 @@ const teamField = document.getElementById('team');
 const newPlayerForm = document.getElementById('new-player-form');
 const registerPlayerBtn = document.getElementById('new-player-btn');
 
+const url = "http://localhost:5000/players";
+
 let players = [];// Initial variable for the players list
 let action = 'Save';// Flag variable for the type of action (Save or Edit)
 
@@ -19,7 +21,7 @@ async function listPlayers() {
 
     try {
         // Makes a request to the data API (backend) and load the real Players registers
-        const response = await fetch("http://localhost:5000/players");// Using fetch (HTTP requests)
+        const response = await fetch(url);// Using fetch (HTTP requests)
         const playersRegisters = await response.json();
         if (Array.isArray(playersRegisters) && playersRegisters.length > 0) {
             players = playersRegisters;// Assign the server registers to the local variable
@@ -64,35 +66,52 @@ async function listPlayers() {
  * Save a new player data to be listed in the table
  * @param event
  */
-function submitPlayerData(event) {
+async function submitPlayerData(event) {
     event.preventDefault();
-    const newRegister = {// Obtain the form fields data
-        firstName: firstNameField.value,
-        lastName: lastNameField.value,
-        position: positionSelect.value,
-        team: teamField.value
-    };
-    switch (action) {
-        case 'Save':
-            players.push(newRegister);
+    try {
+        const newRegister = {// Obtain the form fields data
+            firstName: firstNameField.value,
+            lastName: lastNameField.value,
+            position: positionSelect.value,
+            team: teamField.value
+        };
+        let sendMethod = 'POST';
+        let sendUrl = url;
+        // Validates the type of action to be done
+        if (action === 'Save') {
+            // players.push(newRegister);
             action = 'Save';
-            break;
-        case 'Edit':
-            players[indexField.value] = newRegister;
+        }
+        else if (action === 'Edit') {
+            sendMethod = 'PUT';
+            sendUrl = sendUrl + "/" + indexField.value;
+            // players[indexField.value] = newRegister;
             action = 'Save';
-            break;
-        default:
-            // none
-            break;
-    }
-    listPlayers();// Reload the function to put in screen the updated players list (after the new register)
+        }
 
-    // Reset the inputs to register more data again (4 lines)
-    firstNameField.value = '';
-    lastNameField.value = '';
-    positionSelect.value = 'Position';
-    teamField.value = '';
-    registerPlayerBtn.innerHTML = 'Create';// Reset the modal form button
+        // Send the new register data to the API with fetch()
+        const response = await fetch(sendUrl, {
+            method: sendMethod,
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(newRegister)
+        });
+
+        if (response.ok) {
+            listPlayers();// Reload the function to put in screen the updated players list (after the new register)
+
+            // Reset the inputs to register more data again (4 lines)
+            firstNameField.value = '';
+            lastNameField.value = '';
+            positionSelect.value = 'Position';
+            teamField.value = '';
+            registerPlayerBtn.innerHTML = 'Create';// Reset the modal form button
+        }
+    }
+    catch (error) {
+        throw error;
+    }
 }
 
 /**
