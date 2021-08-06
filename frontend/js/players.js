@@ -27,6 +27,15 @@ async function listPlayers() {
             players = playersRegisters;// Assign the server registers to the local variable
         }
 
+        if (playersRegisters.length === 0) { // If the Players register is empty, shows an specific message in screen
+            playersTable.innerHTML = `
+                <tr>
+                    <td colspan="5"> There are not Players registered yet... </td>
+                </tr>
+            `;
+            return;
+        }
+
         const htmlPlayers = players.map((player, index) =>
             `<tr>
             <th scope="row"> ${index} </th>
@@ -57,9 +66,14 @@ async function listPlayers() {
         );
     }
     catch (error) {
-
+        //throw error;
+        await Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error
+        });
+        console.log( {error} );
     }
-
 }
 
 /**
@@ -110,7 +124,13 @@ async function submitPlayerData(event) {
         }
     }
     catch (error) {
-        throw error;
+        // To show a SweetAlert2 responsive window alert
+        await Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error
+        });
+        console.log( {error} );
     }
 }
 
@@ -154,12 +174,21 @@ function deletePlayer(index) {
             }
         }
         catch (error) {
-            throw error;
+            await Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error
+            });
+            console.log( {error} );
         }
     }
 }
 
 listPlayers();// Executes the function
+
+newPlayerForm.onsubmit = submitPlayerData;// Prevent the default parameters sent (in URL) & redirect of the form data
+registerPlayerBtn.onclick = submitPlayerData;// Save new player (button action)
+
 
 /**
  * Makes a request to the data API (backend) and load the real Players registers
@@ -176,6 +205,3 @@ listPlayers();// Executes the function
         });
 } */
 
-
-newPlayerForm.onsubmit = submitPlayerData;// Prevent the default parameters sent (in URL) & redirect of the form data
-registerPlayerBtn.onclick = submitPlayerData;// Save new player (button action)
