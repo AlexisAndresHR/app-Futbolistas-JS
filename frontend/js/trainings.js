@@ -72,7 +72,13 @@ async function listTrainings() {
         );
     }
     catch (error) {
-        throw error;
+        // To show a SweetAlert2 responsive window alert
+        await Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error
+        });
+        console.log( {error} );
     }
 }
 
@@ -122,7 +128,12 @@ async function submitTrainingData(event) {
         }
     }
     catch (error) {
-        throw error;
+        await Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error
+        });
+        console.log( {error} );
     }
 }
 
@@ -165,7 +176,12 @@ function deleteTraining(index) {
                 listTrainings();// Refresh the table of Trainings
         }
         catch (error) {
-            throw error;
+            await Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error
+            });
+            console.log( {error} );
         }
     }
 }

@@ -65,7 +65,13 @@ async function listCoaches() {
         );
     }
     catch (error) {
-        throw error;
+        // To show a SweetAlert2 responsive window alert
+        await Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error
+        });
+        console.log( {error} );
     }
 }
 
@@ -115,7 +121,12 @@ async function submitCoachData(event) {
         }
     }
     catch (error) {
-        throw error;
+        await Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error
+        });
+        console.log( {error} );
     }
 }
 
@@ -158,7 +169,12 @@ function deleteCoach(index) {
                 listCoaches();// Refresh the table of coaches
         }
         catch (error) {
-            throw error;
+            await Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error
+            });
+            console.log( {error} );
         }
     }
 }
