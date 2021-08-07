@@ -65,7 +65,13 @@ async function listTeams() {
         );
     }
     catch (error) {
-        throw error;
+        // To show a SweetAlert2 responsive window alert
+        await Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error
+        });
+        console.log( {error} );
     }
 }
 
@@ -116,7 +122,12 @@ async function submitTeamData(event) {
         }
     }
     catch (error) {
-        throw error;
+        await Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error
+        });
+        console.log( {error} );
     }
 }
 
@@ -160,7 +171,12 @@ function deleteTeam(index) {
             }
         }
         catch (error) {
-            throw error;
+            await Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error
+            });
+            console.log( {error} );
         }
     }
 }
