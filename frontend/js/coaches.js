@@ -8,7 +8,7 @@ const teamField = document.getElementById('team');
 const newCoachForm = document.getElementById('new-coach-form');
 const registerCoachBtn = document.getElementById('new-coach-btn');
 
-const url = "http://localhost:5000/coaches";
+const url = "https://futbolistas-js-backend.vercel.app/coaches";
 
 let coaches = [];// Initial variable for the coaches list
 let action = 'Save';// Flag variable for the type of action (Save or Edit)

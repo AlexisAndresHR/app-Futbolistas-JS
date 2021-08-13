@@ -8,7 +8,7 @@ const teamField = document.getElementById('team');
 const newPlayerForm = document.getElementById('new-player-form');
 const registerPlayerBtn = document.getElementById('new-player-btn');
 
-const url = "http://localhost:5000/players";
+const url = "https://futbolistas-js-backend.vercel.app/players";
 
 let players = [];// Initial variable for the players list
 let action = 'Save';// Flag variable for the type of action (Save or Edit)

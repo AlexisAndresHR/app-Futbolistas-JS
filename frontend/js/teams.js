@@ -8,7 +8,7 @@ const leagueField = document.getElementById('league');
 const newTeamForm = document.getElementById('new-team-form');
 const registerTeamBtn = document.getElementById('new-team-btn');
 
-const url = "http://localhost:5000/teams";
+const url = "https://futbolistas-js-backend.vercel.app/teams";
 
 let teams = [];// Initial variable for the Teams list
 let action = 'Save';// Flag variable for the type of action (Save or Edit)

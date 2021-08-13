@@ -8,7 +8,7 @@ const hourSelect = document.getElementById('hour');
 const newTrainingForm = document.getElementById('new-training-form');
 const registerTrainingBtn = document.getElementById('new-training-btn');
 
-const url = "http://localhost:5000/trainings";
+const url = "https://futbolistas-js-backend.vercel.app/trainings";
 
 let trainings = [
     {
