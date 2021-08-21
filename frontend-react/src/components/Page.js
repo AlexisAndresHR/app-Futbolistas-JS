@@ -3,6 +3,7 @@ import Nav from "./Nav";
 import ActionsMenu from "./ActionsMenu";
 import Table from "./Table/Table";
 import Modal from "./Modal/Modal";
+import { listData } from "../services/mainService";
 
 // React class component:
 class Page extends Component {
@@ -11,6 +12,7 @@ class Page extends Component {
         super(props);
         this.state = {
             showModalWindow: false,
+            registers: [],
         };
     }
 
@@ -33,14 +35,31 @@ class Page extends Component {
         { value: 3, tag: "Forward" },
     ];
 
+    // Async function to use the service file/code and obtain the API registers
+    listEntity = async () => {
+        const {entity} = this.props;// destructuring
+        const registers = await listData(entity);
+        this.setState( {registers} );
+    };
+
+    // React lifecycle method to execute the code when the component is already placed (mounted) in the DOM
+    componentDidMount() {
+        this.listEntity();
+    }
+
+
     render() {
+        // Receives the page title from the props of the class component (this)
+        const { pageTitle = "App Futbolistas JS" } = this.props;// destructuring
+
         return (
             <>
                 <Nav /> { /* Navbar with Bootstrap style for the menus */ }
 
                 <div className="container"> { /* Main container (div) for the page content */ }
-                    <ActionsMenu changeModalState={ this.changeModalState } />
-                    <Table />
+                    <ActionsMenu changeModalState={ this.changeModalState }
+                                 pageTitle={pageTitle} />
+                    <Table registers={this.state.registers} />
 
                     { this.state.showModalWindow
                         &&

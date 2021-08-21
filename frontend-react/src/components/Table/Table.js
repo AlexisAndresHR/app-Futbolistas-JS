@@ -1,30 +1,21 @@
 import React from "react";
-import { useState } from "react";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 
-function Table() {
+function Table( { registers = [] } ) {
 
-    // React state for the Players Table
-    const [players, setPlayers] = useState([
-        {
-            firstName: "Jose de Jesus",
-            lastName: "Corona",
-            position: "Goalkeeper",
-            team: "Cruz Azul FC"
-        },
-    ]);
-
-    const columnNames = players.length > 0 ? Object.keys(players[0]) : [];
+    // The 'registers' var received throw function props contains the real API data
+    const columnNames = registers.length > 0 ? Object.keys(registers[0]) : [];
 
     return (
         <table className="table">
             <TableHeader columnNames={columnNames} />
 
             <tbody id="players-list">
-                { /* Throw the useState function, puts the Players registers in table rows */ }
-                {players.map((player, index) =>
-                    <TableRow player={player} index={index} />
+                { /* Using the data props, puts the Players registers in table rows */ }
+                {registers.map((objItem, index) =>
+                    <TableRow entity={objItem} index={index}
+                              key={`row-${index}`} />
                 )}
             </tbody>
         </table>

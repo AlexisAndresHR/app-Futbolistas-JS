@@ -6,10 +6,10 @@ function TableRow( props ) {
     return (
         <tr>
             <th scope="row"> {props.index} </th>
-            <td> {props.player.firstName} </td>
-            <td> {props.player.lastName} </td>
-            <td> {props.player.position} </td>
-            <td> {props.player.team} </td>
+            <td> {props.entity.firstName} </td>
+            <td> {props.entity.lastName} </td>
+            <td> {props.entity.position} </td>
+            <td> {props.entity.team} </td>
             <td>
                 <div className="btn-group" role="group" aria-label="Basic example">
                     <button type="button" className="btn btn-primary edit-item" data-bs-toggle="modal"
