@@ -11,7 +11,8 @@ function Modal( props ) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title" id="newFormModalLabel"> {props.modalTitle} </h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                onClick={ props.changeModalState } > </button>
                         </div>
 
                         <div className="modal-body">
@@ -22,7 +23,9 @@ function Modal( props ) {
                         </div>
 
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"> Cancel</button>
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"
+                                onClick={ props.changeModalState } > Cancel
+                            </button>
                             <button type="submit" form="new-player-form" className="btn btn-success" id="new-player-btn"
                                     data-bs-dismiss="modal"> Create
                             </button>

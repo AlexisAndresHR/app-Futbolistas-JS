@@ -15,7 +15,7 @@ class Page extends Component {
     }
 
     // Function to change the state (show/hide) of the modal window
-    chanceModalState = () => {
+    changeModalState = () => {
         this.setState({ showModalWindow: !this.state.showModalWindow });
     };
     // props variables to be sent to the modal window
@@ -39,7 +39,7 @@ class Page extends Component {
                 <Nav /> { /* Navbar with Bootstrap style for the menus */ }
 
                 <div className="container"> { /* Main container (div) for the page content */ }
-                    <ActionsMenu chanceModalState={ this.chanceModalState } />
+                    <ActionsMenu changeModalState={ this.changeModalState } />
                     <Table />
 
                     { this.state.showModalWindow
@@ -47,7 +47,9 @@ class Page extends Component {
                         <Modal modalTitle={this.modalTitle}
                                inputsFormData={this.inputsFormData}
                                formSelect={this.formSelect}
-                               formSelectOptions={this.formSelectOptions} /> }
+                               formSelectOptions={this.formSelectOptions}
+                               changeModalState={ this.changeModalState }/* Change state capability passed to close the modal window */ />
+                    }
                 </div>
             </>
         );

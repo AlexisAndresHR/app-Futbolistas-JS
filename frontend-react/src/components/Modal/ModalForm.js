@@ -9,7 +9,7 @@ function ModalForm( props ) {
             props.inputsFormData.map( ({placeholder, name}, index) => (
                 <div className="form-row" key={'div'+index}>
                     <input type="text" className="form-control" placeholder={placeholder} id={name} name={name}
-                    key={`${name}-${index}`} />
+                    key={`${name}-${index}`} required />
                 </div>
             ) )
             }
