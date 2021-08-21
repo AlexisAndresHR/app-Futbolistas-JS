@@ -2,14 +2,15 @@ import React from "react";
 
 function ModalForm( props ) {
     return (
-        <form id="new-player-form">
+        <form id="new-register-form">
             <input type="hidden" id="index-value" />
 
             { // Goes through the array to dynamically put the inputs in the form, using array.map
             props.inputsFormData.map( ({placeholder, name}, index) => (
                 <div className="form-row" key={'div'+index}>
                     <input type="text" className="form-control" placeholder={placeholder} id={name} name={name}
-                    key={`${name}-${index}`} required />
+                           key={`${name}-${index}`}
+                           onInput={props.handleFormInput} required />
                 </div>
             ) )
             }
@@ -17,7 +18,7 @@ function ModalForm( props ) {
             { // Validates if in the current form there is a Select to put it in screen
                 props.formSelect !== "" &&
                     <div className="form-row">
-                        <select className="form-control" id="position">
+                        <select className="form-control" id="position" name={props.formSelectId} onChange={props.handleFormInput} >
                             <option value=""> {props.formSelect} </option>
                             { props.formSelectOptions.map( ({value, tag}, index) => (
                                 <option key={`${index}-${value}`} value={value}> {tag} </option>

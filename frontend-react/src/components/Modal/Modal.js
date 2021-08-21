@@ -16,18 +16,19 @@ function Modal( props ) {
                         </div>
 
                         <div className="modal-body">
-                            { /* New player register form */ }
+                            { /* New register (entity) form */ }
                             <ModalForm inputsFormData={props.inputsFormData}
-                                       formSelect={props.formSelect}
-                                       formSelectOptions={props.formSelectOptions} />
+                                       formSelect={props.formSelect} formSelectId={props.formSelectId}
+                                       formSelectOptions={props.formSelectOptions}
+                                       handleFormInput={props.handleFormInput} />
                         </div>
 
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal"
+                            <button type="button" className="btn btn-secondary"
                                 onClick={ props.changeModalState } > Cancel
                             </button>
-                            <button type="submit" form="new-player-form" className="btn btn-success" id="new-player-btn"
-                                    data-bs-dismiss="modal"> Create
+                            <button type="button" className="btn btn-success" id="send-register-data"
+                                    onClick={ props.createRegister } > Create
                             </button>
                         </div>
                     </div>
