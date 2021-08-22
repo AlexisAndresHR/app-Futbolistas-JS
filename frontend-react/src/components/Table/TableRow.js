@@ -16,7 +16,8 @@ function TableRow( props ) {
                             onClick={(e) => props.editRegister(e, props.index)} >
                         <FontAwesomeIcon icon={faEdit} />
                     </button>
-                    <button type="button" className="btn btn-danger delete-item">
+                    <button type="button" className="btn btn-danger delete-item"
+                            onClick={(e) => props.deleteEntity(e, props.index)} >
                         <FontAwesomeIcon icon={faTrashAlt} />
                     </button>
                 </div>

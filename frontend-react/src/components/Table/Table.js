@@ -2,7 +2,7 @@ import React from "react";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 
-function Table( { registers = [], editRegister = ()=>{} } ) {
+function Table( { registers = [], editRegister = ()=>{}, deleteEntity = ()=>{} } ) {
 
     // The 'registers' var received throw function props contains the real API data
     const columnNames = registers.length > 0 ? Object.keys(registers[0]) : [];
@@ -16,7 +16,8 @@ function Table( { registers = [], editRegister = ()=>{} } ) {
                 {registers.map((objItem, index) =>
                     <TableRow entity={objItem} index={index}
                               key={`row-${index}`}
-                              editRegister={editRegister} />
+                              editRegister={editRegister}
+                              deleteEntity={deleteEntity} />
                 )}
             </tbody>
         </table>

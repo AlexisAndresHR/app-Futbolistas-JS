@@ -29,7 +29,7 @@ function Modal( props ) {
                                 onClick={ props.changeModalState } > Cancel
                             </button>
                             <button type="button" className="btn btn-success" id="send-register-data"
-                                    onClick={ props.createRegister } > Create
+                                    onClick={ props.createRegister } > Save
                             </button>
                         </div>
                     </div>

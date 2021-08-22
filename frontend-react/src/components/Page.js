@@ -3,7 +3,7 @@ import Nav from "./Nav";
 import ActionsMenu from "./ActionsMenu";
 import Table from "./Table/Table";
 import Modal from "./Modal/Modal";
-import { listData, createDataRegister } from "../services/mainService";
+import { listData, createDataRegister, deleteRegister } from "../services/mainService";
 
 // React class component:
 class Page extends Component {
@@ -73,6 +73,14 @@ class Page extends Component {
         });
     };
 
+    // Function to delete a register from the data API (server)
+    deleteEntity = async (_event, index) => {
+        const { entity } = this.props;
+        const response = await deleteRegister({ entity, objectId: index });// Call the function and pass the parameters
+        console.log({ response });
+        this.listEntities();// Updates the list of registers
+    };
+
     // React lifecycle method to execute the code when the component is already placed (mounted) in the DOM
     componentDidMount() {
         this.listEntities();
@@ -91,7 +99,8 @@ class Page extends Component {
                     <ActionsMenu changeModalState={ this.changeModalState }
                                  pageTitle={pageTitle} />
                     <Table registers={this.state.registers}
-                           editRegister={this.editRegister} />
+                           editRegister={this.editRegister}
+                           deleteEntity={this.deleteEntity} />
 
                     { this.state.showModalWindow
                         &&

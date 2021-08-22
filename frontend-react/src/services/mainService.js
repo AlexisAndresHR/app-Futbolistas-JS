@@ -17,7 +17,9 @@ export const listData = async ( {entity = "players"} ) => {
     }
 };
 
-// Method to create a new register or update one that already exists (POST or PUT)
+/*
+* Method to create a new register or update one that already exists (POST or PUT)
+*/
 export const createDataRegister = async ( {entity = "players", dataObject = {}, method, objectId = null} ) => {
     try {
         let url = null;
@@ -26,8 +28,6 @@ export const createDataRegister = async ( {entity = "players", dataObject = {}, 
         else if (method === "POST")
             url = `${API_URL}/${entity}`;
 
-        console.log( method );
-        console.log( url );
         if (!url)
             throw new Error("The parameters aren't right to be sent");
 
@@ -41,6 +41,25 @@ export const createDataRegister = async ( {entity = "players", dataObject = {}, 
         });// Send the request with fetch()
         const apiData = await response.json();// Formats the response to JSON
         return apiData;
+    }
+    catch (error) {
+        console.log({error});
+    }
+};
+
+/*
+* Method to remove a register from the data API (DELETE)
+*/
+export const deleteRegister = async ( {entity = "players", objectId = null} ) => {
+    try {
+        if (objectId || objectId === 0) {
+            const response = await fetch(`${API_URL}/${entity}/${objectId}`, {
+                method: "DELETE",
+            });// Send the delete request to the server/API with fetch()
+            const apiData = await response.json();// Formats the response to JSON
+            return apiData;
+        }
+        throw new Error("The objectId received is empty");
     }
     catch (error) {
         console.log({error});
