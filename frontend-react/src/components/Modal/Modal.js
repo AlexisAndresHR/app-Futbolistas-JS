@@ -20,7 +20,8 @@ function Modal( props ) {
                             <ModalForm inputsFormData={props.inputsFormData}
                                        formSelect={props.formSelect} formSelectId={props.formSelectId}
                                        formSelectOptions={props.formSelectOptions}
-                                       handleFormInput={props.handleFormInput} />
+                                       handleFormInput={props.handleFormInput}
+                                       entityObject={props.entityObject} />
                         </div>
 
                         <div className="modal-footer">

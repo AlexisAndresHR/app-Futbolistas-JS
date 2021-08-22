@@ -2,7 +2,7 @@ import React from "react";
 import TableHeader from "./TableHeader";
 import TableRow from "./TableRow";
 
-function Table( { registers = [] } ) {
+function Table( { registers = [], editRegister = ()=>{} } ) {
 
     // The 'registers' var received throw function props contains the real API data
     const columnNames = registers.length > 0 ? Object.keys(registers[0]) : [];
@@ -15,7 +15,8 @@ function Table( { registers = [] } ) {
                 { /* Using the data props, puts the Players registers in table rows */ }
                 {registers.map((objItem, index) =>
                     <TableRow entity={objItem} index={index}
-                              key={`row-${index}`} />
+                              key={`row-${index}`}
+                              editRegister={editRegister} />
                 )}
             </tbody>
         </table>

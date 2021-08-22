@@ -21,7 +21,7 @@ export const listData = async ( {entity = "players"} ) => {
 export const createDataRegister = async ( {entity = "players", dataObject = {}, method, objectId = null} ) => {
     try {
         let url = null;
-        if (method === "PUT" && objectId)
+        if (method === "PUT" && (objectId || objectId === 0))
             url = `${API_URL}/${entity}/${objectId}`;
         else if (method === "POST")
             url = `${API_URL}/${entity}`;

@@ -14,13 +14,16 @@ class Page extends Component {
             showModalWindow: false,
             registers: [],
             entityObject: {},
+            objectId: null,
+            requestMethod: "POST",
         };
     }
 
     // Function to change the state (show/hide) of the modal window
-    changeModalState = () => {
-        this.setState({ showModalWindow: !this.state.showModalWindow });
+    changeModalState = (_event, method = "POST") => {
+        this.setState({ showModalWindow: !this.state.showModalWindow, requestMethod: method });
     };
+
     // props variables to be sent to the modal window
     modalTitle = "New Player";
     inputsFormData = [
@@ -55,11 +58,19 @@ class Page extends Component {
     // To call the createDataRegister function and save the new register in the data API
     createRegister = async () => {
         const { entity } = this.props;// destructuring
-        const { entityObject } = this.state;// Obtains the data object from the state (class component)
-        await createDataRegister({ entity: entity, dataObject: entityObject, method:"POST" } );
+        const { entityObject, requestMethod, objectId } = this.state;// Obtains the data object from the state (class component)
+        await createDataRegister({ entity: entity, dataObject: entityObject, method: requestMethod, objectId } );
 
         this.changeModalState();// Closes the modal window
         this.listEntities();
+    };
+
+    // Function that is passed to the Edit button (TableRow) and lets configure parameters to edit an item on the data API
+    editRegister = (_event, index) => {
+        const object = { ...this.state.registers[index] };// Set data of the item to be edited
+        this.setState({ entityObject: object, objectId: index }, ()=>{ // Updates the state component properties
+            this.changeModalState(null, "PUT");// Opens the modal window and updates the request method
+        });
     };
 
     // React lifecycle method to execute the code when the component is already placed (mounted) in the DOM
@@ -79,7 +90,8 @@ class Page extends Component {
                 <div className="container"> { /* Main container (div) for the page content */ }
                     <ActionsMenu changeModalState={ this.changeModalState }
                                  pageTitle={pageTitle} />
-                    <Table registers={this.state.registers} />
+                    <Table registers={this.state.registers}
+                           editRegister={this.editRegister} />
 
                     { this.state.showModalWindow
                         &&
@@ -88,7 +100,8 @@ class Page extends Component {
                                formSelect={this.formSelect} formSelectId={this.formSelectId} formSelectOptions={this.formSelectOptions}
                                changeModalState={ this.changeModalState }/* Change state capability passed to close the modal window */
                                handleFormInput={this.handleFormInput}
-                               createRegister={this.createRegister} />
+                               createRegister={this.createRegister}
+                               entityObject={this.state.entityObject} />
                     }
                 </div>
             </>
