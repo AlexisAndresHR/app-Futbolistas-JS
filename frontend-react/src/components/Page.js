@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Nav from "./Nav";
 import ActionsMenu from "./ActionsMenu";
 import Table from "./Table/Table";
 import Modal from "./Modal/Modal";
@@ -93,8 +92,6 @@ class Page extends Component {
 
         return (
             <>
-                <Nav /> { /* Navbar with Bootstrap style for the menus */ }
-
                 <div className="container"> { /* Main container (div) for the page content */ }
                     <ActionsMenu changeModalState={ this.changeModalState }
                                  pageTitle={pageTitle} />
