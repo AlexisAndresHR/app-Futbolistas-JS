@@ -6,7 +6,7 @@ const API_URL = "https://futbolistas-js-backend.vercel.app";
 /*
 * Method to get/obtain the registers (GET)
 */
-export const listData = async ( {entity = "players"} ) => {
+export const listData = async ( entity = "players" ) => {
     try {
         const response = await fetch(`${API_URL}/${entity}`);// Send the request with fetch()
         const apiData = await response.json();// Formats the response to JSON

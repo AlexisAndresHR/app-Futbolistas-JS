@@ -6,10 +6,10 @@ function TableRow( props ) {
     return (
         <tr>
             <th scope="row"> {props.index} </th>
-            <td> {props.entity.firstName} </td>
-            <td> {props.entity.lastName} </td>
-            <td> {props.entity.position} </td>
-            <td> {props.entity.team} </td>
+            { /* JS map function to show the corresponding value (according to the entity) into each row column */
+            props.columns.map((column, _index) => (
+                <td key={`col-${column}-${_index}`}> {props.entity[column]} </td>
+            )) }
             <td>
                 <div className="btn-group" role="group" aria-label="Basic example">
                     <button type="button" className="btn btn-primary edit-item"

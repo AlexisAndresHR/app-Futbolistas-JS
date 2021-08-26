@@ -12,6 +12,7 @@ class Page extends Component {
         this.state = {
             showModalWindow: false,
             registers: [],
+            columnNames: [],
             entityObject: {},
             objectId: null,
             requestMethod: "POST",
@@ -42,8 +43,11 @@ class Page extends Component {
     // Async function to use the service file/code and obtain the API registers
     listEntities = async () => {
         const {entity} = this.props;// destructuring
+        let columnNames = [];
         const registers = await listData(entity);
-        this.setState( {registers} );
+        if (Array.isArray(registers) && registers.length > 0)
+            columnNames = Object.keys(registers[0]) || [];// Obtains the column names to send it to the Table component
+        this.setState( {registers, columnNames} );
     };
 
     // Function to handle the change events of the inputs and selects of the modal form & after, have the data to be saved
@@ -96,6 +100,7 @@ class Page extends Component {
                     <ActionsMenu changeModalState={ this.changeModalState }
                                  pageTitle={pageTitle} />
                     <Table registers={this.state.registers}
+                           columnNames={this.state.columnNames}
                            editRegister={this.editRegister}
                            deleteEntity={this.deleteEntity} />
 
