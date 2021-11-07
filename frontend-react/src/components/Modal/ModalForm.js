@@ -24,9 +24,10 @@ function ModalForm({ inputsFormData = [], formSelectOptions = [],
                 /*
             inputsFormData.map( ({placeholder, name}, index) => (
                 <div className="form-row" key={'div'+index}>
-                    <input type="text" className="form-control" placeholder={placeholder} id={name} name={name}
-                           key={`${name}-${index}`} value={entityObject[name]}
-                           onInput={handleFormInput} required />
+                    <FormInput placeholder={placeholder} id={name} name={name}
+                               key={`${name}-${index}`}
+                               value={entityObject[name]}
+                               onInput={handleFormInput} />
                 </div>
             ) )
                 */
@@ -35,14 +36,11 @@ function ModalForm({ inputsFormData = [], formSelectOptions = [],
                 /*
                 formSelect !== "" &&
                     <div className="form-row">
-                        <select className="form-control" id={formSelectId} name={formSelectId}
-                                value={entityObject[formSelectId]}
-                                onChange={handleFormInput} >
-                            <option value=""> {formSelect} </option>
-                            { formSelectOptions.map( ({value, tag}, index) => (
-                                <option key={`${index}-${value}`} value={value}> {tag} </option>
-                            ) ) }
-                        </select>
+                        <FormSelect id={formSelectId} name={formSelectId}
+                                    value={entityObject[formSelectId]}
+                                    onChange={handleFormInput}
+                                    firstOption={formSelect}
+                                    formSelectOptions={formSelectOptions} />
                     </div>
                 */
             }

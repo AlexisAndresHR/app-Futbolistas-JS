@@ -1,6 +1,6 @@
 //import React, { useState, useEffect } from "react";
-import Input from "./Input";
-import Select from "./Select";
+import FormInput from "./FormInput";
+import FormSelect from "./FormSelect";
 
 /**
  * Customizable component that returns a form field (Input or Select) based on the name received in props
@@ -26,7 +26,7 @@ function FieldComponent({ handleInput = () => {}, object = {}, fieldName = "", o
         case "position":
         case "hour":
             return (
-                <Select
+                <FormSelect
                     fieldName={fieldName}
                     options={options[fieldName]}
                     onChange={handleInput}
@@ -45,7 +45,7 @@ function FieldComponent({ handleInput = () => {}, object = {}, fieldName = "", o
         case "stadium":
         case "league":
             return (
-                <Input
+                <FormInput
                     fieldName={fieldName}
                     type="text"
                     onInput={handleInput}

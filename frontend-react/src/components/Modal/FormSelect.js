@@ -3,9 +3,7 @@ import React from "react";
 function Select({ options = [], fieldName = "vacio", onChange = () => {},
                     placeholder, value = "" }) {
     return (
-        <select id={fieldName}
-            name={fieldName}
-            className="form-control"
+        <select id={fieldName} name={fieldName} className="form-control"
             onChange={onChange}
             value={value}
         >
