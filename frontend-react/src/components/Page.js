@@ -2,7 +2,42 @@ import React, { Component } from "react";
 import ActionsMenu from "./ActionsMenu";
 import Table from "./Table/Table";
 import Modal from "./Modal/Modal";
+//import Input from "./Modal/Input"
+//import Select from "./Modal/Select"
 import { listData, createDataRegister, deleteRegister } from "../services/mainService";
+
+/*const fieldsType = {
+    firstName: Input,
+    lastName: Input,
+    position: Select,
+    team: Input,
+    country: Input,
+    place: Input,
+    date: Input,
+    hour: Select,
+    name: Input,
+    stadium: Input,
+    league: Input,
+};*/
+// static options to be filled in the Selects
+const staticSelectsOptions = {
+    position: [
+        { it: "Goalkeeper", tag: "Goalkeeper" },
+        { it: "Defense", tag: "Defense" },
+        { it: "Midfielder", tag: "Midfielder" },
+        { it: "Forward", tag: "Forward" },
+    ],
+    hour: [
+        { it: "09:00 am", tag: "09:00 am" },
+        { it: "10:00 am", tag: "10:00 am" },
+        { it: "11:00 am", tag: "11:00 am" },
+        { it: "12:00 am", tag: "12:00 am" },
+        { it: "13:00 am", tag: "13:00 am" },
+        { it: "16:00 am", tag: "16:00 am" },
+        { it: "17:00 am", tag: "17:00 am" },
+        { it: "18:00 am", tag: "18:00 am" },
+    ],
+};
 
 // React class component:
 class Page extends Component {
@@ -16,6 +51,7 @@ class Page extends Component {
             entityObject: {},
             objectId: null,
             requestMethod: "POST",
+            options: staticSelectsOptions,
         };
     }
 
@@ -25,20 +61,7 @@ class Page extends Component {
     };
 
     // props variables to be sent to the modal window
-    modalTitle = "New Player";
-    inputsFormData = [
-        { placeholder: "First Name", name: "firstName" },
-        { placeholder: "Last Name", name: "lastName" },
-        { placeholder: "Team", name: "team" },
-    ];
-    formSelect = "Select a position";
-    formSelectId = "position";
-    formSelectOptions = [
-        { value: "Goalkeeper", tag: "Goalkeeper" },
-        { value: "Defense", tag: "Defense" },
-        { value: "Midfielder", tag: "Midfielder" },
-        { value: "Forward", tag: "Forward" },
-    ];
+    modalTitle = "New register";
 
     // Async function to use the service file/code and obtain the API registers
     listEntities = async () => {
@@ -93,6 +116,7 @@ class Page extends Component {
     render() {
         // Receives the page title from the props of the class component (this)
         const { pageTitle = "App Futbolistas JS" } = this.props;// destructuring
+        //const { columnNames } = this.state;
 
         return (
             <>
@@ -107,8 +131,8 @@ class Page extends Component {
                     { this.state.showModalWindow
                         &&
                         <Modal modalTitle={this.modalTitle}
-                               inputsFormData={this.inputsFormData}
-                               formSelect={this.formSelect} formSelectId={this.formSelectId} formSelectOptions={this.formSelectOptions}
+                               inputsFormData={this.state.columnNames}
+                               formSelectOptions={this.state.options}
                                changeModalState={ this.changeModalState }/* Change state capability passed to close the modal window */
                                handleFormInput={this.handleFormInput}
                                createRegister={this.createRegister}

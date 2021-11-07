@@ -18,7 +18,6 @@ function Modal( props ) {
                         <div className="modal-body">
                             { /* New register (entity) form */ }
                             <ModalForm inputsFormData={props.inputsFormData}
-                                       formSelect={props.formSelect} formSelectId={props.formSelectId}
                                        formSelectOptions={props.formSelectOptions}
                                        handleFormInput={props.handleFormInput}
                                        entityObject={props.entityObject} />
