@@ -56,8 +56,17 @@ class Page extends Component {
     }
 
     // Function to change the state (show/hide) of the modal window
-    changeModalState = (_event, method = "POST") => {
-        this.setState({ showModalWindow: !this.state.showModalWindow, requestMethod: method });
+    changeModalState = (_event, method = "POST", newState = {}) => {
+        let _newState = {
+            ...newState,
+            showModalWindow: !this.state.showModalWindow,
+            method,
+        };
+        if (method === "POST"){
+            _newState = { ..._newState, objectId: null, entityObject: {} };
+        }
+        this.setState(_newState);
+        //this.setState({ showModalWindow: !this.state.showModalWindow, requestMethod: method });
     };
 
     // props variables to be sent to the modal window
@@ -82,12 +91,13 @@ class Page extends Component {
     }
 
     // To call the createDataRegister function and save the new register in the data API
-    createRegister = async () => {
+    createRegister = async (_event = null) => {
         const { entity } = this.props;// destructuring
         const { entityObject, requestMethod, objectId } = this.state;// Obtains the data object from the state (class component)
         await createDataRegister({ entity: entity, dataObject: entityObject, method: requestMethod, objectId } );
 
-        this.changeModalState();// Closes the modal window
+        //this.changeModalState();// Closes the modal window
+        this.changeModalState(_event, "POST", { entityObject: {}, objectId: null });
         this.listEntities();
     };
 
@@ -103,7 +113,7 @@ class Page extends Component {
     deleteEntity = async (_event, index) => {
         const { entity } = this.props;
         const response = await deleteRegister({ entity, objectId: index });// Call the function and pass the parameters
-        console.log({ response });
+        //console.log({ response });
         this.listEntities();// Updates the list of registers
     };
 
